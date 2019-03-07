@@ -1,4 +1,4 @@
 module.exports = {
-  citypost: require('./cityposts'),
+  citypostsin: require('./cityposts'),
   user: require('./user')
 }

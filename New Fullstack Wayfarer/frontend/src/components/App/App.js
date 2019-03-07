@@ -207,14 +207,14 @@ class App extends Component {
             />
 
 {/* ------------------Create Post---------------------- */}
-            {/* <CreatePost
+            <CreatePost
               path='/createpost'
               render={() => {
                 return (
                   <CreatePost  />
                 )
               }}
-            /> */}
+            />
 
 {/* ------------------Edit Post---------------------- */}
             <AddPost
