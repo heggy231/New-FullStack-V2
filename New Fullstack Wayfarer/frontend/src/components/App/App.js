@@ -64,7 +64,10 @@ class App extends Component {
       .then( response => {
         console.log(response)
         localStorage.token = response.data.signedJwt
-          this.setState({
+        localStorage.email = response.data.user.email
+        localStorage.userId = response.data.user._id
+        
+        this.setState({
             isLoggedIn: true,
             user: response.data.user
 
@@ -87,6 +90,8 @@ class App extends Component {
     .then( response => {
       debugger;
       localStorage.token = response.data.signedJwt
+      console.log(response)
+      // localStorage.email = response.data.email
       this.setState({
         email: this.state.email,
         isLoggedIn: true,
@@ -96,11 +101,31 @@ class App extends Component {
     .catch(err => console.log(err))
   }
 
+//----------------Login Method----------------
+// storeUser = (e)=>{
+//   this.setState({
+//     email: this.state.email,
+//     isLoggedIn: true,
+//     user: response.data.user
+
+// },
+
+// keepUserInfo = (e) => {
+//   e.preventDefault()
+//   this.setState({
+//     email: this.state.email,
+//     isLoggedIn: true,
+//     user: response.data.user
+//   })
+// }
+
+
+  
 
 
 // ------------------In Render Method---------------------
   render () {
-
+    
 //// ------------------In Return ---------------------
     return (
       <div>
@@ -125,11 +150,15 @@ class App extends Component {
               }}
             />
 {/* ------------------Main Page---------------------- */}
+
+
+
+
             <Route
               path='/main'
               render={() => {
                 return (
-                  <Main user={this.state.user} />
+                  <Main keepUserInfo={this.state.keepUserInfo} />
                 )
               }}
             />
