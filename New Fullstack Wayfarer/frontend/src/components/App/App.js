@@ -29,8 +29,10 @@ class App extends Component {
   componentDidMount () {
     if (localStorage.token) {
       this.setState({
+        
         isLoggedIn: true,
-        user: this.state.user
+        user: localStorage.userId,
+        email:localStorage.email
       })
     } else {
       this.setState({
@@ -38,6 +40,7 @@ class App extends Component {
       })
     }
   }
+  
 
   handleLogOut = () => {
     this.setState({

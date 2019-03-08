@@ -13,6 +13,15 @@ class LogInForm extends Component {
             <label htmlFor='email'>Email</label>
             <input type='text' name='email' onChange={this.props.handleInput} />
           </div>
+
+
+
+          <div>
+            <label htmlFor='email'>Join Date</label>
+            <input type='date' name='joindate' onChange={this.props.handleInput} />
+          </div>
+
+
           <div>
             <label htmlFor='password'>Password</label>
             <input type='text' name='password' onChange={this.props.handleInput} />

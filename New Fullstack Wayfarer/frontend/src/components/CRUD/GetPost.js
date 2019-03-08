@@ -20,9 +20,11 @@ class GetPost  extends Component {
                 let postdata = res.data
                 //if user id is equal to current
                 if (postdata.length > 0){
+                    let userId = localStorage.userId.toString()
                     var usersposts = postdata.filter(function (post) {
-                        return post.city === "Seattle"; //need to retrieve by userid
+                        return post.user === userId ; //need to retrieve by userid
                       });
+                      
                 }
                 this.setState({
                     city1:usersposts
