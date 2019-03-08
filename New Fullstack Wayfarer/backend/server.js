@@ -6,7 +6,7 @@ const
     bodyParser = require('body-parser')
 
 
-const app = express()
+const app = express();
 
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -15,8 +15,10 @@ app.use(express.static('public'))
 
 //when an axios is called it comes here because the server stands between the frontend and backend. 
 //on this particular line we are giving our messanger (falcon) a route to take to get to the data base. (which tells the database how to respond.)
+app.get('/', (req, res) => res.send('Go to http://localhost:3001/api/citypost to see the json data!!'));
+
 app.use('/api/cityposts', citypostRoutes)
 
 app.use('/user', userRoutes)
 
-app.listen(3001, () => console.log('Listening on port 3001 :)'))
+app.listen(3001, () => console.log('Listening on port 3001 :) seed data goes to http://localhost:3001/api/cityposts'))
