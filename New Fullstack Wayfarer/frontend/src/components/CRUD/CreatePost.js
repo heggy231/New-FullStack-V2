@@ -7,7 +7,7 @@ class CreatePost extends Component {
   constructor(props){
     super(props);
     //Making sure all of our methods below are bound to the THIS object.
-    //otherwise we able to access the STATE object.
+    //otherwise we unable to access the STATE object.
     this.onChangeCreatePostCity = this.onChangeCreatePostCity.bind(this)
     this.onChangeCreatePostTitle = this.onChangeCreatePostTitle.bind(this)
     this.onChangeCreatePostDescription = this.onChangeCreatePostDescription.bind(this)
@@ -23,6 +23,12 @@ class CreatePost extends Component {
     } 
   }
 
+
+
+
+
+
+  
   // The 4 onChange... updates the state to what was changed 
 
 

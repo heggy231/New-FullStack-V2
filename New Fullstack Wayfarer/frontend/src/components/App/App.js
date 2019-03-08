@@ -7,11 +7,10 @@ import axios from 'axios'
 
 
 import NavBar from '../NavBar/NavBar'
-import Landing from '../LandingPage/Landing'
-import PostList from '../PostList/PostList'
 import SignUpForm from '../SignUpForm/SignUpForm'
 import LogInForm from '../LogInForm/LogInForm'
-import LogOut from '../LogOut/LogOut'
+import Landing from '../LandingPage/Landing'
+import PostList from '../PostList/PostList'
 import Main from '../MainFolder/Main'
 import CreatePost from '../CRUD/CreatePost'
 import AppPost from '../CRUD/AddPost'
@@ -30,7 +29,8 @@ class App extends Component {
   componentDidMount () {
     if (localStorage.token) {
       this.setState({
-        isLoggedIn: true
+        isLoggedIn: true,
+        user: this.state.user
       })
     } else {
       this.setState({
@@ -54,10 +54,6 @@ class App extends Component {
     })
   }
 
-
-
-
-
   //----------------Signup Method----------------
   handleSignUp = (e) => {
     e.preventDefault()
@@ -71,7 +67,9 @@ class App extends Component {
           this.setState({
             isLoggedIn: true,
             user: response.data.user
+
           })
+
       })
       .catch(err => console.log(err))
   }
@@ -87,9 +85,12 @@ class App extends Component {
       password: this.state.password
     })
     .then( response => {
+      debugger;
       localStorage.token = response.data.signedJwt
       this.setState({
-        isLoggedIn: true
+        email: this.state.email,
+        isLoggedIn: true,
+        user: response.data.user
       })
     })
     .catch(err => console.log(err))
@@ -100,85 +101,12 @@ class App extends Component {
 // ------------------In Render Method---------------------
   render () {
 
-
-
-
-
-
-
-
-
-
 //// ------------------In Return ---------------------
     return (
       <div>
-        <NavBar isLoggedIn={this.state.isLoggedIn} />
+        <NavBar isLoggedIn={this.state.isLoggedIn} handleLogOut={this.handleLogOut} />
         <div className='body'>
           <Switch>
-
-
-
-
-{/* ------------------LogOut Page---------------------- */}    
-            <Route path='/signup'
-              render={(props) => {
-                return (
-                  <SignUpForm isLoggedIn={this.state.isLoggedIn} handleInput={this.handleInput} handleSignUp={this.handleSignUp} />
-                )
-              }}
-            />
-
-{/* ------------------LogOut Page---------------------- */}
-            <Route path='/logout'
-              render={(props) => {
-                return (
-                  <LogOut isLoggedIn={this.state.isLoggedIn} handleLogOut={this.handleLogOut} />
-                )
-              }}
-            />
-
-
-
-
-{/* ------------------Create Post---------------------- */}
-            <CreatePost
-              path='/createpost'
-              render={() => {
-                return (
-                  <CreatePost  />
-                )
-              }}
-            />
-
-
-
-
-
-
-
-
-
-{/* ------------------Login Page---------------------- */}
-            <Route path='/login'
-              render={(props) => {
-                return (
-                  <LogInForm isLoggedIn={this.state.isLoggedIn} handleInput={this.handleInput} handleLogIn={this.handleLogIn} />
-                )
-              }}
-            />
-
-
-
-
-
-
-
-
-
-
-
-
-
             <Route
               path='/postList'
               render={() => {
@@ -188,7 +116,7 @@ class App extends Component {
               }}
             />
 {/* ------------------Landing Page---------------------- */}
-            <Landing
+            <Route
               exact path='/'
               render={() => {
                 return (
@@ -197,17 +125,17 @@ class App extends Component {
               }}
             />
 {/* ------------------Main Page---------------------- */}
-            <Main
+            <Route
               path='/main'
               render={() => {
                 return (
-                  <Main  />
+                  <Main user={this.state.user} />
                 )
               }}
             />
 
 {/* ------------------Create Post---------------------- */}
-            <CreatePost
+            <Route
               path='/createpost'
               render={() => {
                 return (
@@ -217,7 +145,7 @@ class App extends Component {
             />
 
 {/* ------------------Edit Post---------------------- */}
-            <AddPost
+            <Route
               exact path='/addpost'
               render={() => {
                 return (
@@ -226,7 +154,21 @@ class App extends Component {
               }}
             />
 
+            <Route path='/signup'
+              render={(props) => {
+                return (
+                  <SignUpForm isLoggedIn={this.state.isLoggedIn} handleInput={this.handleInput} handleSignUp={this.handleSignUp} />
+                )
+              }}
+            />
 
+            <Route path='/login'
+              render={(props) => {
+                return (
+                  <LogInForm isLoggedIn={this.state.isLoggedIn} handleInput={this.handleInput} handleLogIn={this.handleLogIn} />
+                )
+              }}
+            />
 
           </Switch>
         </div>

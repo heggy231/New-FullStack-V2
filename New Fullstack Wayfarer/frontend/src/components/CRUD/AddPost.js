@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Modal from 'react-bootstrap/Modal'
 import '../MainFolder/Main.css'
+import axios from 'axios'
 
 class AddPost extends Component {
     // constructor(props, context) {
@@ -77,27 +78,46 @@ class AddPost extends Component {
     
     
     //Now we need the method handling the submitting of the form
-      onSubmit(e){
-    //The Submitt Logic needs to go below here.
-    
-    console.log(`Form submitted:`)
-    console.log(`Post City: ${this.state.city}`)
-    console.log(`Post Title: ${this.state.title}`)
-    console.log(`Post Description: ${this.state.description}`)
-    console.log(`Post Url: ${this.state.imageUrl}`)
-    
-    
-        e.preventDefault();
-        // reset all keys in this.setState to empty string as it was initially
-        this.setState ({
-          city: "",
-          title: "",
-          description: "",
-          imageUrl: "",
-          completed: false
-    
+    onSubmit = (e) => {
+      // console.log(`Form submitted:`)
+      // console.log(`Post City: ${this.state.city}`)
+      // console.log(`Post Title: ${this.state.title}`)
+      // console.log(`Post Description: ${this.state.description}`)
+      // console.log(`Post Url: ${this.state.imageUrl}`)
+  
+      e.preventDefault()
+      axios({
+        method: 'post',
+        url: 'http://localhost:3001/api/cityposts',
+        data: { 
+          city: this.state.city,
+          title: this.state.title,
+          description: this.state.description,
+          imageUrl:this.state.imageUrl 
+            },
+          headers: {authorization: `Bearer ${localStorage.token}`}
         })
-      }
+        .then( response => {
+          console.log(response)
+  
+  
+  
+          
+          // this.setState ({
+          //   city: "",
+          //   title: "",
+          //   description: "",
+          //   imageUrl: "",
+          //   completed: false
+      
+          // })
+        })
+        .catch(err => console.log(err))
+       
+        // reset all keys in this.setState to empty string as it was initially
+  
+  
+    }
     
     
     render() {
@@ -134,7 +154,7 @@ class AddPost extends Component {
                     <h4 style={{textAlign: "center"}}>Create New Post</h4>
                 <form onSubmit={this.onSubmit}>
 
-                    <div className='form-group'>
+                    {/* <div className='form-group'>
 
                         <div className="form-check form-check">
                             <input
@@ -188,6 +208,16 @@ class AddPost extends Component {
                                 <label className="form-check-label">Seattle</label>
                         </div>
 
+                        </div> */}
+                        
+                        <div className='form-group'>
+                        <label>City: </label>
+                        <input
+                        type="text"
+                        className="form-control"
+                        value={this.state.city}
+                        onChange={this.onChangeCreatePostCity}
+                        />
                         </div>
 
                         <div className='form-group'>

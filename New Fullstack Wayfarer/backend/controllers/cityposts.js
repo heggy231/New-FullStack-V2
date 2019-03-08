@@ -7,8 +7,18 @@ module.exports = {
         db.Post.find({}, (err,cityposts)=>{
             res.json(cityposts)
         })
-        
     },
+
+    // index:(req, res) =>{
+    //     db.Post.find({})
+    //     .populate("user")
+    //     .populate("city")
+    //     .exec((err, cityposts)=>{
+    //         console.log("please work");
+    //         if (err) return console.error(err);
+    //         res.json(cityposts)
+    //     });
+    // },
 
 
 
@@ -28,8 +38,18 @@ module.exports = {
             console.log(newPostCreated)
             res.json(newPostCreated)
         });
-    }
-//This is the Get Function 
+    },
+    
+    //This is the Get Function 
+    getone: (req,res)=>{
+        let id = req.body._id
+        db.Post.findById(id, (err,citypost)=>{
+            if (err) return console.log(err);
+            res.json(citypost);
+        });
+        
+    },
+
 
 
 //This is the Update Function 

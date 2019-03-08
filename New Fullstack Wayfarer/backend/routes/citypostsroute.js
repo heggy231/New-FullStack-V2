@@ -12,6 +12,8 @@ router.use((req, res, next) => {
   const bearerHeader = req.headers['authorization'];
   console.log('triggered token check', bearerHeader)
 
+  console.log('/////  inside router.use')
+
   if(typeof bearerHeader !== 'undefined'){
     const bearer = bearerHeader.split(' ');
     const bearerToken = bearer[1];
@@ -26,8 +28,9 @@ router.use((req, res, next) => {
   }
 })
 
+//
 router.post('/', controllers.citypostsin.create)
-
+router.get('/', controllers.citypostsin.getone)
 
 
 // router.delete('/', controllers.citypostsin.delete)

@@ -9,7 +9,7 @@ class NavBar extends Component {
     if (this.props.isLoggedIn) {
       //  navBarItems.push(<NavItem key={1} href='/postList'>All Post</NavItem>)
        navBarItems.push(<NavItem key={6} href='/main'>Main</NavItem>)
-       navBarItems.push(<NavItem key={2} href='/logout'>Log Out</NavItem>)
+       navBarItems.push(<NavItem key={2} href='/logout' onClick={this.props.handleLogOut}>Log Out</NavItem>)
      
     } else {
       navBarItems.push(<NavItem key={3} href='/signup'>Sign Up</NavItem>)
@@ -17,9 +17,7 @@ class NavBar extends Component {
     }
     return (
       <Navbar brand='WayFarer' className='nav' right>
-   
         {navBarItems}
-
       </Navbar>
     )
   }
